@@ -1,6 +1,6 @@
 import json
 import os
-from typing import List, Dict
+from typing import Dict
 from pathlib import Path
 from contextlib import contextmanager
 
@@ -50,15 +50,8 @@ class ArchiveGetter:
             print(f"An error occurred while creating the main directory: {e}")
             raise e
 
-    def return_markdown_files_names(self) -> List[str]:
-        try:
-            return [file.name for file in self.dir_path.iterdir() if file.suffix == ".md"]
-        except FileNotFoundError:
-            print(f"Directory not found: {self.dir_path}")
-            return []
-        except Exception as e:
-            print(f"An error occurred: {e}")
-            return []
+
+
 
     def create_directories_from_json(self):
         def create_subdirectories(base_path: Path, structure: Dict):
@@ -67,7 +60,6 @@ class ArchiveGetter:
                 dir_path.mkdir(parents=True, exist_ok=True)
                 if isinstance(value, dict):
                     create_subdirectories(dir_path, value)
-
         try:
             if not self.json_data:
                 print("No data to process from JSON.")
