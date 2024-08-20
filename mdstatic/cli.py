@@ -1,11 +1,25 @@
 
 from typing import Optional
 
+from pathlib import Path
+
 import typer
 
-from src import __app_name__, __version__
+from mdstatic import ArchiveGetter
+from mdstatic import __app_name__, __version__
 
 app = typer.Typer()
+
+
+@app.command()
+def create_main(temp_dir : Path, mock_json_file: Path) -> None:
+    try:
+        Getter = ArchiveGetter(temp_dir, mock_json_file) 
+        Getter.create_maindir(temp_dir)
+    except Exception as e:
+        typer.echo(f"An error occurred while creating the main directory: {e}")
+        raise typer.Exit()
+
 
 def _version_callback(value: bool) -> None:
     if value:
