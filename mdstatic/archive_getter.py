@@ -50,9 +50,6 @@ class ArchiveGetter:
             print(f"An error occurred while creating the main directory: {e}")
             raise e
 
-
-
-
     def create_directories_from_json(self):
         def create_subdirectories(base_path: Path, structure: Dict):
             for key, value in structure.items():

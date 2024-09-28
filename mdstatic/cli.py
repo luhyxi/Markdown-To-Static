@@ -6,7 +6,6 @@ from pathlib import Path
 import typer
 
 from mdstatic import ArchiveGetter
-from mdstatic import __app_name__, __version__
 
 app = typer.Typer()
 
@@ -21,10 +20,10 @@ def create_main(temp_dir : Path, mock_json_file: Path) -> None:
         raise typer.Exit()
 
 
-def _version_callback(value: bool) -> None:
-    if value:
-        typer.echo(f"{__app_name__} v{__version__}")
-        raise typer.Exit()
+def _version_callback() -> None:
+    from mdstatic import __app_name__, __version__
+    typer.echo(f"{__app_name__} v{__version__}")
+    raise typer.Exit()
 
 @app.callback()
 def main(
